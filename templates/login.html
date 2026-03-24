@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="glass-card auth-card">
+        <h2>{{ 'Join EcoScan' if is_signup else 'Welcome Back' }}</h2>
+        <p class="auth-subtitle">{{ 'Create an account to start earning rewards.' if is_signup else 'Log in to view your dashboard.' }}</p>
+
+        <form method="POST" action="{{ url_for('signup') if is_signup else url_for('login') }}">
+            {% if is_signup %}
+            <div class="form-group">
+                <label for="username">Full Name</label>
+                <input type="text" id="username" name="username" required placeholder="John Doe">
+            </div>
+            {% endif %}
+            
+            <div class="form-group">
+                <label for="mobile_number">Mobile Number</label>
+                <input type="tel" id="mobile_number" name="mobile_number" required placeholder="Ex: 555-1234" pattern="[0-9\-\+]+">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="••••••••">
+            </div>
+            
+            <button type="submit" class="btn-primary w-100">{{ 'Sign Up' if is_signup else 'Login' }}</button>
+        </form>
+        
+        <div class="auth-switch">
+            {% if is_signup %}
+                Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+            {% else %}
+                Don't have an account? <a href="{{ url_for('signup') }}">Sign up now</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

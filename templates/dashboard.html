@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-header mb-2">
+    <h2>Welcome, <span class="text-gradient">{{ user.username }}</span>!</h2>
+    <p class="text-muted">Here's your real-time recycling impact and rewards.</p>
+</div>
+
+<div class="dashboard-grid">
+    <div class="main-panel">
+        <div class="stats-grid">
+            <div class="glass-card stat-box">
+                <h3>Total Points</h3>
+                <div class="number text-gradient">{{ user.points }}</div>
+                <p class="text-muted"><i class="fa-solid fa-star"></i> Keep earning!</p>
+            </div>
+            <div class="glass-card stat-box">
+                <h3>Bottles Recycled</h3>
+                <div class="number">{{ total_bottles }}</div>
+                <p class="text-muted"><i class="fa-solid fa-bottle-water"></i> Total saved</p>
+            </div>
+        </div>
+
+        <div class="glass-card mt-2">
+            <h3>Recent Activity</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Bottles</th>
+                            <th>Points Earned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for txn in transactions[:5] %}
+                        <tr>
+                            <td>{{ txn.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>{{ txn.bottles_inserted }}</td>
+                            <td><span class="text-gradient">+{{ txn.points_earned }}</span></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">No recycling activity yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-panel">
+        <div class="glass-card graph-card">
+            <h3><i class="fa-solid fa-chart-area"></i> Your Impact Graph</h3>
+            <p class="text-muted mb-2">Daily recycling trends</p>
+            
+            {% if graph_url %}
+                <img src="{{ graph_url }}" alt="Impact Graph">
+            {% else %}
+                <div class="alert alert-info text-center mt-2">
+                    Recycle your first bottle to see your impact graph!
+                </div>
+            {% endif %}
+            
+            <a href="{{ url_for('scan') }}" class="btn-scan w-100 mt-2 text-center" style="margin-top:20px;display:block;">
+                <i class="fa-solid fa-camera"></i> Scan New Bottle
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-header mb-2">
+    <h2><i class="fa-solid fa-shield-halved text-gradient"></i> Admin Panel & Leaderboard</h2>
+    <p class="text-muted">Manage system data and view top recyclers across the platform.</p>
+</div>
+
+<div class="glass-card">
+    <h3>Top Recyclers Leaderboard</h3>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Total Points</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>
+                        {% if loop.index == 1 %}
+                            <i class="fa-solid fa-crown" style="color: gold;"></i> 1st
+                        {% elif loop.index == 2 %}
+                            <i class="fa-solid fa-medal" style="color: silver;"></i> 2nd
+                        {% elif loop.index == 3 %}
+                            <i class="fa-solid fa-medal" style="color: #cd7f32;"></i> 3rd
+                        {% else %}
+                            #{{ loop.index }}
+                        {% endif %}
+                    </td>
+                    <td>#{{ u.id }}</td>
+                    <td><strong>{{ u.username }}</strong></td>
+                    <td>{{ u.mobile_number }}</td>
+                    <td><span class="text-gradient" style="font-weight: 800;">{{ u.points }}</span></td>
+                    <td>
+                        {% if u.is_admin %}
+                            <span style="background: rgba(59, 130, 246, 0.2); color: #3b82f6; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">Admin</span>
+                        {% else %}
+                            User
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted">No users registered yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

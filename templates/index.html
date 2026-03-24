@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-content">
+        <h1>Transform <span class="text-gradient">Plastic</span> into <span class="text-gradient">Points</span></h1>
+        <p>Join the revolution of recycling. Deposit your plastic bottles, earn digital rewards, and make the planet greener.</p>
+        <div class="hero-buttons">
+            {% if session.get('user_id') %}
+                <a href="{{ url_for('scan') }}" class="btn-primary btn-lg"><i class="fa-solid fa-camera"></i> Scan a Bottle Now</a>
+            {% else %}
+                <a href="{{ url_for('signup') }}" class="btn-primary btn-lg">Join the Movement</a>
+                <a href="{{ url_for('login') }}" class="btn-outline btn-lg">Login</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-graphics">
+        <div class="floating-bottle">
+            <i class="fa-solid fa-bottle-water"></i>
+        </div>
+        <div class="glass-card stat-card">
+            <h3><i class="fa-solid fa-earth-americas text-gradient"></i> Global Impact</h3>
+            <p>1M+ Bottles Recycled</p>
+        </div>
+    </div>
+</div>
+
+<div class="features">
+    <div class="feature-card glass-card">
+        <div class="icon-circle"><i class="fa-solid fa-camera-viewfinder"></i></div>
+        <h3>Smart Scanning</h3>
+        <p>Our advanced OpenCV-powered system instantly verifies plastic bottles with high accuracy.</p>
+    </div>
+    <div class="feature-card glass-card">
+        <div class="icon-circle"><i class="fa-solid fa-coins"></i></div>
+        <h3>Instant Rewards</h3>
+        <p>Earn 10 points for every valid bottle you deposit. Redeem them for real-world benefits.</p>
+    </div>
+    <div class="feature-card glass-card">
+        <div class="icon-circle"><i class="fa-solid fa-chart-line"></i></div>
+        <h3>Track Impact</h3>
+        <p>Monitor your carbon footprint reduction with real-time analytics and dynamic charts.</p>
+    </div>
+</div>
+{% endblock %}

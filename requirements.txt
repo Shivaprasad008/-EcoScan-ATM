@@ -1,0 +1,7 @@
+Flask
+Flask-SQLAlchemy
+opencv-python
+opencv-python-headless
+pandas
+matplotlib
+Werkzeug
